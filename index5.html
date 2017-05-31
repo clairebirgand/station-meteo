@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <title>Station météo</title>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script>
+      var socket = io.connect();
+      socket.on('temperature', function (data) {
+          $('#tempint').text(data);
+      });
+  </script>
+
+  <script>
+      var sucket = io.connect();
+      sucket.on('temperature_ext', function (tempstring) {
+          $('#tempext').text(tempstring);
+      });
+  </script>
+
+
+
+  <script type="text/javascript">
+  setInterval(function(){
+      document.getElementById('afficherheure').innerHTML = new Date().toLocaleTimeString();
+  }, 1000);
+  </script>
+
+  <script type="text/javascript">
+  setInterval(function(){
+      document.getElementById('afficherdate').innerHTML = new Date().toLocaleDateString();
+  }, 1000);
+  </script>
+
+</head>
+
+<body>
+
+  <div class="jumbotron text-center">
+    <h1>Station météo</h1>
+      <h4>Le <span id="afficherdate"></span> à <span id="afficherheure"></span></h4>
+  </div>
+
+  <div class="container">
+    <div class="row">
+
+
+      <div class="col-sm-6 text-center">
+          <img src="https://image.flaticon.com/icons/svg/425/425962.svg" alt="thermometre" style="width:150px;height:150px;">
+          <h4>Température intérieure</h4>
+          <h3><span id="tempint">0</span> °C</h3>
+      </div>
+
+      <div class="col-sm-6 text-center">
+          <img src="https://image.flaticon.com/icons/svg/214/214363.svg" alt="thermometre" style="width:150px;height:150px;">
+          <h4>Température extérieure</h4>
+          <h3><span id="tempext">0</span> °C</h3>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
